@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-9">
+      <div class="col-9 mt-2">
         <div :ref="mapRef" class="map"></div>
       </div>
       <div class="col-3">
@@ -17,7 +17,7 @@ import { mapGetters } from 'vuex'
 import ThingInfo from './Thing'
 import { amsMap } from '@/services/map.js'
 import { showLocations } from '@/services/iotmap'
-import { getThing } from '@/services/api/iot'
+import { getThing, getLocation } from '@/services/api/iot'
 
 let map = null
 // let locationsMarkers = null
@@ -29,25 +29,27 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'locations'
+      'locations',
+      'markers'
     ])
   },
   methods: {
-    showLocationMarkers (locations) {
-      if (locations) {
-        showLocations(map, locations, this.showThing)
+    showLocationMarkers (markers) {
+      if (markers) {
+        showLocations(map, markers, this.showThing)
       }
     },
-    async showThing (location) {
-      const thing = await getThing(location.thing_id)
-      console.log('Thing', thing, location)
+
+    async showThing (marker) {
+      const thing = await getThing(marker.id)
+      const location = await getLocation(marker.location_id)
       this.thing = thing
       this.location = location
     }
   },
   watch: {
-    'locations' () {
-      this.showLocationMarkers(this.locations)
+    'markers' () {
+      this.showLocationMarkers(this.markers)
     }
   },
   data () {
@@ -59,7 +61,7 @@ export default {
   },
   mounted () {
     map = amsMap(this.$refs[this.mapRef])
-    this.showLocationMarkers(this.locations)
+    this.showLocationMarkers(this.markers)
   }
 }
 </script>

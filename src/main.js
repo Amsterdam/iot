@@ -13,7 +13,7 @@ import VueAxios from 'vue-axios'
 import App from './App'
 import router from './router'
 import store from './store'
-import { getLocations, getThing } from './services/api/iot'
+import { getMarkers, getLocations, getThings } from './services/api/iot'
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
@@ -34,12 +34,17 @@ let vueApp = new Vue({
   },
   methods: {
     ...mapActions({
-      setLocations: 'setLocations'
+      setLocations: 'setLocations',
+      setMarkers: 'setMarkers'
     }),
     async init () {
+      const markers = await getMarkers()
+      this.setMarkers(markers)
+
       const locations = await getLocations()
       this.setLocations(locations)
-      getThing(locations[0].thing_id)
+
+      getThings()
     }
   }
 })

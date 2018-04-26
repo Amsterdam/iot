@@ -1,22 +1,36 @@
 import { readPaginatedData } from '@/services/datareader'
 
 let things = null
+let locations = null
 
-export async function getLocations () {
-  return readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_locations/')
+export async function getMarkers () {
+  return readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_markers/')
 }
 
-// async function getThings () {
-//   const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_things/')
-//   things = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
-//   console.log('things', things)
-// }
+export async function getLocations () {
+  const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_locations/')
+  const result = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
+  return result
+}
+
+export async function getThings () {
+  const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_things/')
+  const result = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
+  return result
+}
 
 export async function getThing (id) {
   if (!things) {
-    const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_things/')
-    things = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
-    console.log('things', things)
+    things = getThings()
   }
-  return things[id]
+  const all = await things
+  return all[id]
+}
+
+export async function getLocation (id) {
+  if (!locations) {
+    locations = getLocations()
+  }
+  const all = await locations
+  return all[id]
 }

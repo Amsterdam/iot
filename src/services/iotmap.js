@@ -1,5 +1,4 @@
 import L from 'leaflet'
-import { getThing } from '@/services/api/iot'
 
 const markerOptions = {
   iconUrl: '../../static/markers/marker-icon-blue.png',
@@ -13,21 +12,19 @@ const markerOptions = {
 
 let clicker
 
-function getMarkerIcon (location) {
-  // const thing = await getThing(location.thing_id)
+function getMarkerIcon (marker) {
   const iconUrls = {
     'Camera': 'marker-icon-blue.png',
     'Beacon': 'marker-icon-green.png'
   }
-  const iconUrl = '../../static/markers/' + iconUrls['Camera']
-  console.log(iconUrl)
+  const iconUrl = '../../static/markers/' + iconUrls[marker.device_type]
   return L.icon({
     ...markerOptions,
     iconUrl
   })
 }
 
-export function showLocations (map, locations, onClick) {
+export function showLocations (map, markers, onClick) {
   const showInfo = loc => {
     if (clicker) {
       map.removeLayer(clicker)
@@ -36,22 +33,23 @@ export function showLocations (map, locations, onClick) {
     clicker.addTo(map)
     onClick(loc)
   }
-  const showPopup = async loc => {
-    let [lat, lon] = loc.wgs84_geometry.coordinates
-    let thing = await getThing(loc.thing_id)
+
+  const showPopup = async marker => {
+    let [lat, lon] = marker.wgs84_geometry.coordinates
     L.popup({ offset: new L.Point(0, -40) })
-      .setContent(thing.name)
+      .setContent(marker.name)
       .setLatLng([lat, lon])
       .openOn(map)
   }
+
   const hidePopup = loc => map.closePopup()
 
-  const markers = locations
-    .map(location =>
-      L.marker(location.wgs84_geometry.coordinates, { icon: getMarkerIcon(location) })
+  const locationMarkers = markers
+    .map(marker =>
+      L.marker(marker.wgs84_geometry.coordinates, { icon: getMarkerIcon(marker) })
         .addTo(map)
-        .on('click', () => showInfo(location))
-        .on('mouseover', () => showPopup(location))
-        .on('mouseout', () => hidePopup(location)))
-  return markers
+        .on('click', () => showInfo(marker))
+        .on('mouseover', () => showPopup(marker))
+        .on('mouseout', () => hidePopup(marker)))
+  return locationMarkers
 }
