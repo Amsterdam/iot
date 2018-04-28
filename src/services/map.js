@@ -16,19 +16,6 @@ export function amsMap (el) {
   }).setView([52.375, 4.9], 8)
 
   map.addLayer(tileLayer())
-
-  // const greenIcon = L.icon({
-  //   iconUrl: '../../static/markers/marker-icon-blue.png',
-  //   shadowUrl: '../../static/markers/marker-shadow.png',
-  //   iconSize: [25, 41],
-  //   shadowSize: [50, 64],
-  //   iconAnchor: [13, 40],
-  //   shadowAnchor: [4, 62],
-  //   popupAnchor: [-3, -76]
-  // })
-  // L.marker([52.375, 4.9], {icon: greenIcon}).addTo(map)
-  // L.circleMarker([52.375, 4.9]).addTo(map)
-
   return map
 }
 

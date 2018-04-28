@@ -3,7 +3,7 @@
 
     <div class="container">
       <nav class="nav nav-pills justify-content-end">
-        <router-link to="/" class="nav-link">
+        <router-link to="/" class="nav-link" :class="{active: $route.name === 'Home'}">
           <span class="linklabel">
             Home
           </span>

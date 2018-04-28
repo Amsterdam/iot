@@ -1,20 +1,23 @@
 import { readPaginatedData } from '@/services/datareader'
 
+// const API = 'https://acc.api.data.amsterdam.nl'
+const API = 'http://localhost:8000'
+
 let things = null
 let locations = null
 
 export async function getMarkers () {
-  return readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_markers/')
+  return readPaginatedData(API + '/vsd/iot_markers/')
 }
 
 export async function getLocations () {
-  const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_locations/')
+  const data = await readPaginatedData(API + '/vsd/iot_locations/')
   const result = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
   return result
 }
 
 export async function getThings () {
-  const data = await readPaginatedData('https://acc.api.data.amsterdam.nl/vsd/iot_things/')
+  const data = await readPaginatedData(API + '/vsd/iot_things/')
   const result = data.reduce((obj, item) => ({...obj, [item.id]: item}), {})
   return result
 }
@@ -33,4 +36,9 @@ export async function getLocation (id) {
   }
   const all = await locations
   return all[id]
+}
+
+export function initIoT () {
+  locations = getLocations()
+  things = getThings()
 }
