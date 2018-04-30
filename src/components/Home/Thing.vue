@@ -20,9 +20,10 @@
     <p>{{thing.ref}}</p>
 
     <p class="font-weight-bold">
-    <router-link :to="{name: 'InfoRequest', params: { id: thing.id }}">
-      Contact eigenaar
-    </router-link>
+      <!--<router-link :to="{name: 'InfoRequest', params: { id: thing.id }}">-->
+        <!--Contact eigenaar-->
+      <!--</router-link>-->
+      <button class="btn btn-primary" @click="contactOwner()">Contact eigenaar</button>
     </p>
 
     <h5>Plaatsing</h5>
@@ -32,16 +33,29 @@
 
     <div class="font-weight-bold">Referentie</div>
     <p>{{location.ref}}</p>
+
+    <info-request-modal :thing="thing" ref="inforequest"></info-request-modal>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Layout/Card'
+import InfoRequestModal from './InfoRequestModal'
 
 export default {
   name: 'Thing',
   components: {
+    InfoRequestModal,
     Card
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    contactOwner () {
+      this.$refs.inforequest.startRequest()
+    }
   },
   props: [
     'thing',
