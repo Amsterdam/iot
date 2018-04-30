@@ -15,12 +15,14 @@ const markerTypes = {
   'Camera': {
     id: 'Camera',
     iconUrl: ICON_PATH + 'video-2x.png',
-    name: 'Camera'
+    name: 'Camera',
+    enabled: true
   },
   'Beacon': {
     id: 'Beacon',
     iconUrl: ICON_PATH + 'signpost-2x.png',
-    name: 'Baken'
+    name: 'Baken',
+    enabled: true
   }
 }
 
