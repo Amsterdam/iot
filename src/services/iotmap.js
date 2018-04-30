@@ -29,7 +29,7 @@ let clicker
 let markerGroup
 
 function getMarkerIcon (marker) {
-  const iconUrl = ICON_PATH + markerTypes[marker.device_type].iconUrl
+  const iconUrl = markerTypes[marker.device_type].iconUrl
   return L.icon({
     ...markerOptions,
     iconUrl
