@@ -3,7 +3,7 @@ import 'leaflet.markercluster'
 
 import { mapHome } from './map'
 
-const ICON_PATH = '../../static/markers/'
+const ICON_PATH = 'static/markers/'
 
 const markerOptions = {
   iconSize: [16, 16],
@@ -29,7 +29,7 @@ let clicker
 let markerGroup
 
 function getMarkerIcon (marker) {
-  const iconUrl = '../../static/markers/' + markerTypes[marker.device_type].iconUrl
+  const iconUrl = ICON_PATH + markerTypes[marker.device_type].iconUrl
   return L.icon({
     ...markerOptions,
     iconUrl
