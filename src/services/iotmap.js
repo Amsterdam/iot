@@ -1,6 +1,8 @@
 import L from 'leaflet'
 import 'leaflet.markercluster'
 
+import { mapHome } from './map'
+
 const ICON_PATH = '../../static/markers/'
 
 const markerOptions = {
@@ -68,7 +70,7 @@ function homeButton (map) {
       container.style.height = '33px'
 
       container.onclick = function () {
-        map.setView([52.375, 4.9], 8)
+        mapHome(map)
       }
       return container
     }

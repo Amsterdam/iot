@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home/Home'
+import Complaints from '@/components/Home/Complaints'
+import InfoRequest from '@/components/Home/InfoRequest'
 
 Vue.use(Router)
 
@@ -15,6 +17,16 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/complaints',
+      name: 'Complaints',
+      component: Complaints
+    },
+    {
+      path: '/inforequest',
+      name: 'InfoRequest',
+      component: InfoRequest
     }
   ]
 })

@@ -13,10 +13,15 @@ export function amsMap (el) {
     attributionControl: false,
     zoomControl: true,
     scrollWheelZoom: false
-  }).setView([52.375, 4.9], 8)
+  })
 
+  mapHome(map)
   map.addLayer(tileLayer())
   return map
+}
+
+export function mapHome (map) {
+  map.setView([52.375, 4.9], 8)
 }
 
 /**

@@ -12,12 +12,15 @@ import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import VeeValidate from 'vee-validate'
+
 import App from './App'
 import router from './router'
 import store from './store'
 import { getMarkers, getLocations, initIoT } from './services/api/iot'
 
 Vue.use(VueAxios, axios)
+Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

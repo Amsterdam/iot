@@ -1,7 +1,7 @@
 import { readPaginatedData } from '@/services/datareader'
 
-// const API = 'https://acc.api.data.amsterdam.nl'
-const API = 'http://localhost:8000'
+const API = 'https://acc.api.data.amsterdam.nl'
+// const API = 'http://localhost:8000'
 
 let things = null
 let locations = null
