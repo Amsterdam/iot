@@ -36,6 +36,12 @@ function getMarkerIcon (marker) {
   })
 }
 
+export function cancelHighlight (map) {
+  if (clicker) {
+    map.removeLayer(clicker)
+  }
+}
+
 export function getMarkerTypes () {
   return markerTypes
 }
@@ -80,9 +86,7 @@ function homeButton (map, onClick) {
       container.style.height = '33px'
 
       container.onclick = function () {
-        if (clicker) {
-          map.removeLayer(clicker)
-        }
+        cancelHighlight(map)
         map.closePopup()
         onClick(null)
         mapHome(map)

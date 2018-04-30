@@ -44,7 +44,7 @@
 import { mapGetters } from 'vuex'
 import ThingInfo from './Thing'
 import { amsMap } from '@/services/map.js'
-import { showLocations, getMarkerTypes, toggleMarkers, onMap } from '@/services/iotmap'
+import { showLocations, getMarkerTypes, toggleMarkers, onMap, cancelHighlight } from '@/services/iotmap'
 import { getThing, getLocation } from '@/services/api/iot'
 
 let map = null
@@ -84,6 +84,7 @@ export default {
 
     closeThing () {
       this.showThing(null)
+      cancelHighlight(map)
     }
   },
   watch: {
