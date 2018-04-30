@@ -1,6 +1,6 @@
 <template>
-  <div v-if="thing">
-    <h3>Details</h3>
+  <div>
+    <h3 class="font-weight-bold">Details</h3>
 
     <h5>Apparaat</h5>
 
@@ -18,6 +18,12 @@
 
     <div class="font-weight-bold">Referentie</div>
     <p>{{thing.ref}}</p>
+
+    <p class="font-weight-bold">
+    <router-link :to="{name: 'InfoRequest', params: { id: thing.id }}">
+      Contact eigenaar
+    </router-link>
+    </p>
 
     <h5>Plaatsing</h5>
 

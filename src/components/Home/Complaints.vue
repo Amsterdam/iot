@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Bezwaren & Klachten – Gemeente Amsterdam</h2>
+    <h2 class="font-weight-bold">Bezwaren & Klachten – Gemeente Amsterdam</h2>
 
     <p>
       Heeft u bezwaren of klachten over een object in dit register?

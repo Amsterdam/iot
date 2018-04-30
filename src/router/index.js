@@ -24,7 +24,7 @@ export default new Router({
       component: Complaints
     },
     {
-      path: '/inforequest',
+      path: '/inforequest/:id',
       name: 'InfoRequest',
       component: InfoRequest
     }

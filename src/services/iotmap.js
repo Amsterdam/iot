@@ -15,22 +15,18 @@ const markerTypes = {
   'Camera': {
     id: 'Camera',
     iconUrl: ICON_PATH + 'video-2x.png',
-    name: 'Camera',
-    layer: null,
-    enabled: true
+    name: 'Camera'
   },
   'Beacon': {
     id: 'Beacon',
     iconUrl: ICON_PATH + 'signpost-2x.png',
-    name: 'Baken',
-    layer: null,
-    enabled: true
+    name: 'Baken'
   }
 }
 
 let clicker
 
-const markerGroup = L.markerClusterGroup()
+let markerGroup
 
 function getMarkerIcon (marker) {
   const iconUrl = '../../static/markers/' + markerTypes[marker.device_type].iconUrl
@@ -55,7 +51,21 @@ export function toggleMarkers (markerType) {
   }
 }
 
-function homeButton (map) {
+export function onMap (map, id, where) {
+  const HomeControl = L.Control.extend({
+
+    options: {
+      position: where
+    },
+
+    onAdd: function (map) {
+      return L.DomUtil.get(id)
+    }
+  })
+  map.addControl(new HomeControl())
+}
+
+function homeButton (map, onClick) {
   const HomeControl = L.Control.extend({
 
     options: {
@@ -70,6 +80,11 @@ function homeButton (map) {
       container.style.height = '33px'
 
       container.onclick = function () {
+        if (clicker) {
+          map.removeLayer(clicker)
+        }
+        map.closePopup()
+        onClick(null)
         mapHome(map)
       }
       return container
@@ -91,13 +106,18 @@ export function showLocations (map, markers, onClick) {
 
   const showPopup = async marker => {
     let [lat, lon] = marker.wgs84_geometry.coordinates
-    L.popup({ offset: new L.Point(0, -20) })
+    L.popup({ offset: new L.Point(0, -20), autoPan: false })
       .setContent(`<div class="font-weight-bold">${marker.device_type}</div>${marker.name}`)
       .setLatLng([lat, lon])
       .openOn(map)
   }
 
   const hidePopup = loc => map.closePopup()
+
+  markerGroup = L.markerClusterGroup({
+    disableClusteringAtZoom: 12,
+    spiderfyOnMaxZoom: false
+  })
 
   Object.keys(markerTypes).forEach(markerType => {
     const layer = L.featureGroup()
@@ -110,10 +130,11 @@ export function showLocations (map, markers, onClick) {
           .on('mouseover', () => showPopup(marker))
           .on('mouseout', () => hidePopup(marker)))
     markerTypes[markerType].layer = layer
+    markerTypes[markerType].enabled = true
     markerGroup.addLayer(layer)
   })
 
   map.addLayer(markerGroup)
-  homeButton(map)
+  homeButton(map, onClick)
   return markerGroup
 }

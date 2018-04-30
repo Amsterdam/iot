@@ -27,6 +27,7 @@
     "proj4leaflet": "^1.0.2",
     "sass-loader": "^6.0.7",
     "stijl": "git+https://git@github.com/Amsterdam/stijl.git",
+    "vee-validate": "^2.0.8",
     "vega-canvas": "^1.0.1",
     "vega-embed": "^3.4.0",
     "vega-lite": "^2.3.1",

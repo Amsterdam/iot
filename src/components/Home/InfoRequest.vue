@@ -1,21 +1,22 @@
 <template>
-  <div>
+  <div v-if="thing">
+    <h2 class="font-weight-bold">Object: {{thing.name}}</h2>
+    <h3 class="font-weight-bold">Type: {{thing.device_type}}</h3>
     <div class="row">
       <div class="col-9">
-        <h2>Object [ID] - [TYPE] - [?]</h2>
         <form @submit.prevent="handleSubmit">
-          <div class="form-check mb-2">
-            <input v-model="request.requestAccess" type="checkbox" class="form-check-input" id="toegang">
-            <label class="form-check-label" for="toegang">Ik wil toegang tot de data uit dit object</label>
-          </div>
           <div class="form-group">
             <label for="naam" :class="{invalid: errors.has('naam')}">Uw naam</label>
             <input v-model="request.name" v-validate="'required'" type="text" class="form-control" id="naam" name="naam" placeholder="Naam">
           </div>
           <div class="form-group">
             <label for="email" :class="{invalid: errors.has('email')}">Uw E-mail adres</label>
-            <input v-model="request.email"  v-validate="'required|email'" type="email" class="form-control" id="email" name="email" placeholder="E-mail adres">
+            <input v-model="request.email"  v-validate="'required|email'" type="text" class="form-control" id="email" name="email" placeholder="E-mail adres">
             <small id="emailHelp" class="form-text text-muted">Uw gegevens worden niet opgeslagen in dit register.</small>
+          </div>
+          <div class="form-check mb-2">
+            <input v-model="request.requestAccess" type="checkbox" class="form-check-input" id="toegang">
+            <label class="form-check-label" for="toegang">Ik wil toegang tot de data uit dit object</label>
           </div>
           <div class="form-group">
             <label for="titel">Titel van uw vraag</label>
@@ -42,7 +43,6 @@
         <p>Let op:</p>
         <ul>
           <li>Uw vraag wordt doorgestuurd naar de eigenaar door deze website.</li>
-          <li>Uw vraag wordt doorgestuurd zodra u deze bevestigd heeft, u ontvangt daarvoor een link in uw mailbox.</li>
           <li>Uw gegevens worden niet opgeslagen in dit register.</li>
           <li>De eigenaar van het object ontvangt uw mailadres om contact op te nemen met u.</li>
         </ul>
@@ -52,10 +52,13 @@
 </template>
 
 <script>
+import { getThing } from '../../services/api/iot'
+
 export default {
   name: 'InfoRequest',
   data () {
     return {
+      thing: null,
       request: {
         requestAccess: false,
         name: '',
@@ -70,9 +73,11 @@ export default {
   methods: {
     handleSubmit () {
       this.$validator.validateAll()
-      console.log('errors', this.errors)
-      console.log('form submit', this.request)
     }
+  },
+  async mounted () {
+    const id = this.$route.params.id
+    this.thing = await getThing(id)
   }
 }
 </script>

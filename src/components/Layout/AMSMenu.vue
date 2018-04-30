@@ -8,6 +8,11 @@
             Home
           </span>
         </router-link>
+        <router-link to="/complaints" class="nav-link" :class="{active: $route.name === 'Complaints'}">
+          <span class="linklabel">
+            Over IoT
+          </span>
+        </router-link>
       </nav>
     </div>
   </div>

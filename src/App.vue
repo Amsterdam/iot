@@ -8,7 +8,7 @@
       <router-view></router-view>
     </ams-content>
 
-    <!--<ams-footer :title="title">Footer</ams-footer>-->
+    <ams-footer class="fixed-bottom" :title="title">Footer</ams-footer>
 
     <loading-component></loading-component>
   </div>
