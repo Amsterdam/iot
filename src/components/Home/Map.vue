@@ -3,7 +3,7 @@
   <div>
     <div class="row">
       <div class="col-12 mt-1">
-        <div :ref="mapRef" class="map">
+        <div :ref="mapRef" class="map" :style="{'height': height + 'px'}">
 
           <div class="leaflet-bottom leaflet-left">
             <div id="legend" class="map-overlay">
@@ -95,12 +95,15 @@ export default {
   data () {
     return {
       mapRef: `${this._uid}.leafletExample`,
+      height: window.innerHeight - 120,
       thing: null,
       location: null,
       markerTypes: null
     }
   },
   mounted () {
+    window.addEventListener('resize', () => { this.height = window.innerHeight - 120 })
+
     map = amsMap(this.$refs[this.mapRef])
 
     this.markerTypes = getMarkerTypes()
@@ -114,7 +117,6 @@ export default {
 
 <style scoped>
 .map {
-  height: 800px;
 }
 .map-overlay {
   background-color: white;
