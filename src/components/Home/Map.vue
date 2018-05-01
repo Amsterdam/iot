@@ -8,19 +8,13 @@
           <div class="leaflet-bottom leaflet-left">
             <div id="legend" class="map-overlay">
               <h3 class="font-weight-bold">Apparaten</h3>
-              <form>
-                <div v-for="markerType in markerTypes" :key="markerType.name"
-                     class="form-check mb-1" @click="toggleMarkers(markerType.id)">
-                  <input type="checkbox"
-                         class="form-check-input"
-                         :id="`toggle${markerType.name}`"
-                         v-model="markerType.enabled"
-                  >
-                  <label class="form-check-label" :for="`toggle${markerType.name}`">
-                    <img :src="markerType.iconUrl"> {{markerType.name}}
-                  </label>
-                </div>
-              </form>
+              <div v-for="markerType in markerTypes" :key="markerType.name"
+                   class="mb-1" @click="toggleMarkers(markerType.id)">
+                <button class="btn btn-sm btn-light">
+                  <img :src="markerType.iconUrl" :class="{'marker-off': !markerType.enabled}">
+                </button>
+                {{markerType.name}}
+              </div>
             </div>
           </div>
 
@@ -121,5 +115,8 @@ export default {
   background-color: white;
   margin: 15px;
   padding: 15px;
+}
+.marker-off {
+  opacity: 0.1;
 }
 </style>

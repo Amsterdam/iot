@@ -2,34 +2,54 @@
   <div>
     <h3 class="font-weight-bold">Details</h3>
 
-    <h5>Apparaat</h5>
+    <table class="table table-sm table-hover">
+      <thead>
+      <tr>
+        <th scope="col" colspan="2">Apparaat:</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">Type</th>
+        <td>{{thing.device_type}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Naam</th>
+        <td>{{thing.name}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Beschrijving</th>
+        <td>{{thing.description}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Doel</th>
+        <td>{{thing.purpose}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Referentie</th>
+        <td>{{thing.ref}}</td>
+      </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th scope="col" colspan="2">Plaats:</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">Plaats</th>
+        <td>{{location.name}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Referentie</th>
+        <td>{{location.ref}}</td>
+      </tr>
+      </tbody>
+    </table>
 
-    <div class="font-weight-bold">Type</div>
-    <p>{{thing.device_type}}</p>
-
-    <div class="font-weight-bold">Naam</div>
-    <p>{{thing.name}}</p>
-
-    <div class="font-weight-bold">Beschrijving</div>
-    <p>{{thing.description}}</p>
-
-    <div class="font-weight-bold">Doel</div>
-    <p>{{thing.purpose}}</p>
-
-    <div class="font-weight-bold">Referentie</div>
-    <p>{{thing.ref}}</p>
-
-    <p class="font-weight-bold">
+    <div>
       <button class="btn btn-primary" @click="contactOwner()">Contact eigenaar</button>
-    </p>
-
-    <h5>Plaatsing</h5>
-
-    <div class="font-weight-bold">Plaats</div>
-    <p>{{location.name}}</p>
-
-    <div class="font-weight-bold">Referentie</div>
-    <p>{{location.ref}}</p>
+    </div>
   </div>
 </template>
 
