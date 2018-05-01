@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3 class="font-weight-bold">Details</h3>
+    <h3 class="font-weight-bold">
+      Details
+    </h3>
 
     <table class="table table-sm table-hover">
       <thead>
@@ -11,7 +13,10 @@
       <tbody>
       <tr>
         <th scope="row">Type</th>
-        <td>{{thing.device_type}}</td>
+        <td>
+          {{getMarkerType(thing).name}}
+          <img :src="getMarkerType(thing).iconUrl">
+        </td>
       </tr>
       <tr>
         <th scope="row">Naam</th>
@@ -54,6 +59,8 @@
 </template>
 
 <script>
+import { getMarkerType } from '@/services/iotmap'
+
 export default {
   name: 'Thing',
   components: {
@@ -62,7 +69,10 @@ export default {
     return {
     }
   },
+  computed: {
+  },
   methods: {
+    getMarkerType,
     contactOwner () {
       this.$router.push({
         name: 'InfoRequest',

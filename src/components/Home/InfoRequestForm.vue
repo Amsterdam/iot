@@ -1,7 +1,10 @@
 <template>
   <div v-if="thing">
     <h2 class="font-weight-bold">Object: {{thing.name}}</h2>
-    <h3 class="font-weight-bold">Type: {{thing.device_type}}</h3>
+    <h3 class="font-weight-bold">Type:
+      {{getMarkerType(thing).name}}
+      <img :src="getMarkerType(thing).iconUrl">
+    </h3>
     <div class="row">
       <div class="col-9">
         <form @submit.prevent="handleSubmit">
@@ -52,6 +55,8 @@
 </template>
 
 <script>
+import { getMarkerType } from '@/services/iotmap'
+
 export default {
   name: 'InfoRequestForm',
   props: [
@@ -71,6 +76,7 @@ export default {
     }
   },
   methods: {
+    getMarkerType,
     handleSubmit () {
       this.$validator.validateAll()
     }

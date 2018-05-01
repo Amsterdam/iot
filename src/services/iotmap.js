@@ -30,6 +30,10 @@ let clicker
 
 let markerGroup
 
+export function getMarkerType (thing) {
+  return markerTypes[Object.keys(markerTypes).find(mt => mt === thing.device_type)]
+}
+
 function getMarkerIcon (marker) {
   const iconUrl = markerTypes[marker.device_type].iconUrl
   return L.icon({
@@ -111,9 +115,10 @@ export function showLocations (map, markers, onClick) {
   }
 
   const showPopup = async marker => {
-    let [lat, lon] = marker.wgs84_geometry.coordinates
+    const [lat, lon] = marker.wgs84_geometry.coordinates
+    const markerType = getMarkerType(marker)
     L.popup({ offset: new L.Point(0, -20), autoPan: false })
-      .setContent(`<div class="font-weight-bold">${marker.device_type}</div>${marker.name}`)
+      .setContent(`<div class="font-weight-bold">${markerType.name}</div>${marker.name}`)
       .setLatLng([lat, lon])
       .openOn(map)
   }
