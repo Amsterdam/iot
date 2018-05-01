@@ -3,19 +3,18 @@
   <div>
     <div class="row">
       <div class="col-12 mt-1">
-        <div :ref="mapRef" class="map">
+        <div :ref="mapRef" class="map" :style="{'height': height + 'px'}">
 
           <div class="leaflet-bottom leaflet-left">
             <div id="legend" class="map-overlay">
               <h3 class="font-weight-bold">Apparaten</h3>
               <form>
                 <div v-for="markerType in markerTypes" :key="markerType.name"
-                     class="form-check">
+                     class="form-check mb-1" @click="toggleMarkers(markerType.id)">
                   <input type="checkbox"
                          class="form-check-input"
                          :id="`toggle${markerType.name}`"
                          v-model="markerType.enabled"
-                         @click="toggleMarkers(markerType.id)"
                   >
                   <label class="form-check-label" :for="`toggle${markerType.name}`">
                     <img :src="markerType.iconUrl"> {{markerType.name}}
@@ -95,12 +94,15 @@ export default {
   data () {
     return {
       mapRef: `${this._uid}.leafletExample`,
+      height: window.innerHeight - 120,
       thing: null,
       location: null,
       markerTypes: null
     }
   },
   mounted () {
+    window.addEventListener('resize', () => { this.height = window.innerHeight - 120 })
+
     map = amsMap(this.$refs[this.mapRef])
 
     this.markerTypes = getMarkerTypes()
@@ -114,7 +116,6 @@ export default {
 
 <style scoped>
 .map {
-  height: 800px;
 }
 .map-overlay {
   background-color: white;

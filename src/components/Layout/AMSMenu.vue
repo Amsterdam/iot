@@ -1,7 +1,7 @@
 <template>
   <div class="menu mt-3">
 
-    <div class="container">
+    <div class="container-fluid">
       <nav class="nav nav-pills justify-content-end">
         <router-link to="/" class="nav-link" :class="{active: $route.name === 'Home'}">
           <span class="linklabel">
