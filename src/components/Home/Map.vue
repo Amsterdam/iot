@@ -10,12 +10,11 @@
               <h3 class="font-weight-bold">Apparaten</h3>
               <form>
                 <div v-for="markerType in markerTypes" :key="markerType.name"
-                     class="form-check">
+                     class="form-check mb-1" @click="toggleMarkers(markerType.id)">
                   <input type="checkbox"
                          class="form-check-input"
                          :id="`toggle${markerType.name}`"
                          v-model="markerType.enabled"
-                         @click="toggleMarkers(markerType.id)"
                   >
                   <label class="form-check-label" :for="`toggle${markerType.name}`">
                     <img :src="markerType.iconUrl"> {{markerType.name}}
