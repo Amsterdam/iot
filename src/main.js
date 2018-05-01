@@ -14,6 +14,7 @@ import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import vSelect from 'vue-select'
 import VeeValidate from 'vee-validate'
 
 import App from './App'
@@ -24,6 +25,8 @@ import { getMarkers, getLocations, initIoT } from './services/api/iot'
 Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 Vue.config.productionTip = false
+
+Vue.component('v-select', vSelect)
 
 /* eslint-disable no-new */
 let vueApp = new Vue({

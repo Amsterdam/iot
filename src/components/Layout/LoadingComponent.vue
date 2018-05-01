@@ -35,8 +35,15 @@ export default {
     shouldShowSpinner (pending) {
       if (pending > 0) {
         clearTimeout(this.spinnerHideTimeout)
-        this.showSpinner = true
+        this.spinnerHideTimeout = null
+        if (!this.spinnerShowTimeout) {
+          this.spinnerShowTimeout = setTimeout(() => {
+            this.showSpinner = true
+          }, 750)
+        }
       } else {
+        clearTimeout(this.spinnerShowTimeout)
+        this.spinnerShowTimeout = null
         this.spinnerHideTimeout = setTimeout(() => {
           this.showSpinner = false
         }, 300)

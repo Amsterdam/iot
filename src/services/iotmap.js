@@ -63,6 +63,10 @@ export function toggleMarkers (markerType) {
   }
 }
 
+export function fitBounds (map, p1, p2) {
+  map.fitBounds([p1, p2])
+}
+
 export function onMap (map, id, where) {
   const HomeControl = L.Control.extend({
 

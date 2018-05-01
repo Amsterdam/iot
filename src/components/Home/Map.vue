@@ -34,14 +34,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import ThingInfo from './Thing'
 import { amsMap } from '@/services/map.js'
 import { showLocations, getMarkerTypes, toggleMarkers, onMap, cancelHighlight } from '@/services/iotmap'
 import { getThing, getLocation } from '@/services/api/iot'
-
-let map = null
-// let locationsMarkers = null
 
 export default {
   name: 'Map',
@@ -55,9 +52,12 @@ export default {
     ])
   },
   methods: {
+    ...mapActions({
+      setMap: 'setMap'
+    }),
     showLocationMarkers (markers) {
       if (markers) {
-        showLocations(map, markers, this.showThing)
+        showLocations(this.map, markers, this.showThing)
       }
     },
 
@@ -77,7 +77,7 @@ export default {
 
     closeThing () {
       this.showThing(null)
-      cancelHighlight(map)
+      cancelHighlight(this.map)
     }
   },
   watch: {
@@ -87,6 +87,7 @@ export default {
   },
   data () {
     return {
+      map: null,
       mapRef: `${this._uid}.leafletExample`,
       height: window.innerHeight - 120,
       thing: null,
@@ -97,13 +98,14 @@ export default {
   mounted () {
     window.addEventListener('resize', () => { this.height = window.innerHeight - 120 })
 
-    map = amsMap(this.$refs[this.mapRef])
+    this.map = amsMap(this.$refs[this.mapRef])
+    this.setMap(this.map)
 
     this.markerTypes = getMarkerTypes()
     this.showLocationMarkers(this.markers)
 
-    onMap(map, 'legend', 'bottomleft')
-    onMap(map, 'thing', 'bottomright')
+    onMap(this.map, 'legend', 'bottomleft')
+    onMap(this.map, 'thing', 'bottomright')
   }
 }
 </script>

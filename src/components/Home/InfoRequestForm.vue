@@ -36,10 +36,19 @@
           <div class="form-check">
             <input v-model="request.acceptConditions" v-validate="{required: true}" type="checkbox" class="form-check-input" id="voorwaarden" name="voorwaarden">
             <label class="form-check-label" :class="{invalid: errors.has('voorwaarden')}" for="voorwaarden">
-              Ik accepteer de <a href="#">algemene voorwaarden</a>
+              Ik accepteer de <a href="#" :class="{invalid: errors.has('voorwaarden')}">algemene voorwaarden</a>
             </label>
           </div>
-          <button type="submit" class="btn btn-primary mt-2">Versturen</button>
+          <p>
+            <button type="submit" class="btn btn-primary mt-2" :disabled="submitted">Versturen</button>
+          </p>
+          <div class="alert alert-warning" role="alert">
+            <strong>Waarschuwing!</strong>
+            Deze functie is nog niet actief.
+            <div v-if="submitted">
+              <strong>Uw bericht is niet verstuurd!</strong>
+            </div>
+          </div>
         </form>
       </div>
       <div class="col-3">
@@ -72,13 +81,17 @@ export default {
         motivation: '',
         question: '',
         acceptConditions: false
-      }
+      },
+      submitted: false
     }
   },
   methods: {
     getMarkerType,
-    handleSubmit () {
-      this.$validator.validateAll()
+    async handleSubmit () {
+      const allValid = await this.$validator.validateAll()
+      if (allValid) {
+        this.submitted = true
+      }
     }
   }
 }

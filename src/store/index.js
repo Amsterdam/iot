@@ -5,10 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    map: null,
     locations: null,
     markers: null
   },
   actions: {
+    setMap (store, map) {
+      store.commit('map', map)
+    },
     setLocations (store, locations) {
       store.commit('locations', locations)
     },
@@ -17,6 +21,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    map (state, map) {
+      state.map = map
+    },
     locations (state, locations) {
       state.locations = locations
     },
@@ -25,6 +32,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    map: state => {
+      return state.map
+    },
     locations: state => {
       return state.locations
     },
