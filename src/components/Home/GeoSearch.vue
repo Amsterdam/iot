@@ -14,6 +14,8 @@ import { geoSearch, getBounds } from '../../services/api/geosearch'
 import { fitBounds } from '../../services/iotmap'
 import { mapHome } from '../../services/map'
 
+let searchTimeout = null
+
 export default {
   name: 'GeoSearch',
   data () {
@@ -44,8 +46,13 @@ export default {
       }
     },
     onSearch: async function (searchText) {
-      const results = await geoSearch(searchText)
-      this.options = results
+      if (searchTimeout) {
+        clearTimeout(searchTimeout)
+      }
+      searchTimeout = setTimeout(async () => {
+        const results = await geoSearch(searchText)
+        this.options = results
+      }, 250)
     }
   }
 }
