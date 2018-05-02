@@ -1,11 +1,11 @@
 <template>
   <div v-if="thing">
-    <info-request-form :thing="thing"></info-request-form>
+    <info-request-form :thing="thing" :location="location"></info-request-form>
   </div>
 </template>
 
 <script>
-import { getThing } from '../../services/api/iot'
+import { getThing, getLocation } from '../../services/api/iot'
 import InfoRequestForm from './InfoRequestForm'
 
 export default {
@@ -15,12 +15,15 @@ export default {
   },
   data () {
     return {
-      thing: null
+      thing: null,
+      location: null
     }
   },
   async mounted () {
-    const id = this.$route.params.id
-    this.thing = await getThing(id)
+    const thingId = this.$route.params.thingId
+    const locationId = this.$route.params.locationId
+    this.thing = await getThing(thingId)
+    this.location = await getLocation(locationId)
   }
 }
 </script>

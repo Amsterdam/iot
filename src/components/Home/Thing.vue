@@ -4,7 +4,7 @@
       Details
     </h3>
 
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover table-borderless">
       <thead>
       <tr>
         <th scope="col" colspan="2">Apparaat:</th>
@@ -77,7 +77,8 @@ export default {
       this.$router.push({
         name: 'InfoRequest',
         params: {
-          id: this.thing.id
+          thingId: this.thing.id,
+          locationId: this.location.id
         }
       })
     }

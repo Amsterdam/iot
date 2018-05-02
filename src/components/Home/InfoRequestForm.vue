@@ -1,10 +1,28 @@
 <template>
-  <div v-if="thing">
-    <h2 class="font-weight-bold">Object: {{thing.name}}</h2>
-    <h3 class="font-weight-bold">Type:
-      {{getMarkerType(thing).name}}
-      <img :src="getMarkerType(thing).iconUrl">
-    </h3>
+  <div v-if="thing && location">
+    <table class="table table-sm table-responsive table-borderless">
+      <tbody>
+      <tr>
+        <th scope="row" class="pl-0">Object:</th>
+        <td>
+          {{thing.name}}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row" class="pl-0">Type:</th>
+        <td>
+          {{getMarkerType(thing).name}}
+          <img :src="getMarkerType(thing).iconUrl">
+        </td>
+      </tr>
+      <tr>
+        <th scope="row" class="pl-0">Plaats:</th>
+        <td>
+          {{location.name}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <div class="row">
       <div class="col-9">
         <form @submit.prevent="handleSubmit">
@@ -69,7 +87,8 @@ import { getMarkerType } from '@/services/iotmap'
 export default {
   name: 'InfoRequestForm',
   props: [
-    'thing'
+    'thing',
+    'location'
   ],
   data () {
     return {
