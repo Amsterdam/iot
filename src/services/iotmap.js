@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import 'leaflet.markercluster'
 
-import { mapHome } from './map'
+import { mapHome, mapGo } from './map'
 
 const ICON_PATH = 'static/markers/'
 
@@ -105,7 +105,35 @@ function homeButton (map, onClick) {
     }
   })
 
+  const PositionControl = L.Control.extend({
+
+    options: {
+      position: 'topleft'
+    },
+
+    onAdd: function (map) {
+      const container = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom')
+      container.src = ICON_PATH + 'location-3x.png'
+      container.style.backgroundColor = 'white'
+      container.style.width = '33px'
+      container.style.height = '33px'
+
+      container.onclick = function () {
+        cancelHighlight(map)
+        map.closePopup()
+        onClick(null)
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(pos => mapGo(map, pos.coords.latitude, pos.coords.longitude))
+        } else {
+          mapHome(map)
+        }
+      }
+      return container
+    }
+  })
+
   map.addControl(new HomeControl())
+  map.addControl(new PositionControl())
 }
 
 export function showLocations (map, markers, onClick) {

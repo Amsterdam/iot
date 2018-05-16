@@ -24,6 +24,10 @@ export function mapHome (map) {
   map.setView([52.375, 4.9], 8)
 }
 
+export function mapGo (map, lat, lon, zoom = 10) {
+  map.setView([lat, lon], zoom)
+}
+
 /**
  * Returns a tile layer for Amsterdam
  * This tyle layer can be used to show a given shape on the map of Amsterdam
