@@ -23,6 +23,24 @@ const markerTypes = {
     iconUrl: ICON_PATH + 'signpost-2x.png',
     name: 'Baken',
     enabled: true
+  },
+  '3D sensor': {
+    id: '3D sensor',
+    iconUrl: ICON_PATH + 'audio-2x.png',
+    name: '3D Sensor',
+    enabled: true
+  },
+  'WiFi sensor': {
+    id: 'WiFi sensor',
+    iconUrl: ICON_PATH + 'wifi-2x.png',
+    name: 'WiFi Sensor',
+    enabled: true
+  },
+  'Telcamera': {
+    id: 'Telcamera',
+    iconUrl: ICON_PATH + 'aperture-2x.png',
+    name: 'Telcamera',
+    enabled: true
   }
 }
 
