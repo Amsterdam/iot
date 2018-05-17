@@ -38,7 +38,7 @@ const markerTypes = {
   },
   'Telcamera': {
     id: 'Telcamera',
-    iconUrl: ICON_PATH + 'aperture-2x.png',
+    iconUrl: ICON_PATH + 'plus-2x.png',
     name: 'Telcamera',
     enabled: true
   }
@@ -99,6 +99,19 @@ export function onMap (map, id, where) {
   map.addControl(new HomeControl())
 }
 
+function geolocationError (error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      return 'Toegang tot locatie is afgeschermd.'
+    case error.POSITION_UNAVAILABLE:
+      return 'Locatie informatie is niet beschikbaar.'
+    case error.TIMEOUT:
+      return 'Locatie informatie kon niet tijdig worden gevonden.'
+    case error.UNKNOWN_ERROR:
+      return 'Locatie informatie kon niet worden gevonden.'
+  }
+}
+
 function homeButton (map, onClick) {
   const HomeControl = L.Control.extend({
 
@@ -141,7 +154,10 @@ function homeButton (map, onClick) {
         map.closePopup()
         onClick(null)
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(pos => mapGo(map, pos.coords.latitude, pos.coords.longitude))
+          navigator.geolocation.getCurrentPosition(
+            pos => mapGo(map, pos.coords.latitude, pos.coords.longitude),
+            err => console.log(geolocationError(err))
+          )
         } else {
           mapHome(map)
         }
