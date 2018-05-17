@@ -25,7 +25,7 @@ export default {
   ],
   data () {
     return {
-      author: 'datapunt'
+      author: 'De Gemeente Amsterdam, OIS'
     }
   }
 }

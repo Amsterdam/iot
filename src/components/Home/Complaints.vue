@@ -13,7 +13,7 @@
     </p>
 
     <p>
-      Bezwaar indienen doet u door middel van een brief, meer informatie daarover treft u op: <a href="https://www.amsterdam.nl/veelgevraagd/?productid=%7BAC4FD5CE-6924-4861-8F3C-6E2C24EE5898%7D">Bezwaar maken tegen een besluit van de gemeente Amsterdam</a>.
+      Bezwaar indienen doet u door middel van een brief, meer informatie daarover treft u op: <a target="_blank" href="https://www.amsterdam.nl/veelgevraagd/?productid=%7BAC4FD5CE-6924-4861-8F3C-6E2C24EE5898%7D">Bezwaar maken tegen een besluit van de gemeente Amsterdam</a>.
     </p>
   </div>
 </template>

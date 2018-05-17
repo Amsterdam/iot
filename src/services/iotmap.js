@@ -144,7 +144,7 @@ function homeButton (map, onClick) {
 
     onAdd: function (map) {
       const container = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom')
-      container.src = ICON_PATH + 'location-3x.png'
+      container.src = ICON_PATH + 'location-24.png'
       container.style.backgroundColor = 'white'
       container.style.width = '33px'
       container.style.height = '33px'
